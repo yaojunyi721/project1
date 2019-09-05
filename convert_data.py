@@ -78,15 +78,15 @@ def convert_verified(data_file, dest_npy, class_names):
         for i, line in enumerate(fp):
             row = line.strip().split('\t')
             if len(row) == 5:
-                key, url, class_name, vlabel, feature = row
+                key, url, class_name, verification_label, feature = row
             else:
-                key, class_name, vlabel, feature = row
-            if vlabel != '-1':
-                positive_count += int(vlabel)
+                key, class_name, verification_label, feature = row
+            if verification_label != '-1':
+                positive_count += int(verification_label)
                 class_id = class_names_to_ids[class_name]
-                vlabel = float(vlabel)
+                verification_label = float(verification_label)
                 feature = [float(x) for x in feature.strip().split(",")]
-                data.append(feature+[float(class_id)]+[vlabel])
+                data.append(feature+[float(class_id)]+[verification_label])
                 sys.stdout.write('\r>> load %d samples with verification label' % (i+1))
             else:
                 invalid_count += 1
